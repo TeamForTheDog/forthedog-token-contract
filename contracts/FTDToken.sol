@@ -13,7 +13,7 @@ contract ForTheDog is ERC20, ERC20Burnable, Pausable, AccessControl {
 
     uint256 private _limitMint;
 
-    mapping(address => bool) internal _FullLockList;
+    mapping(address => bool) internal _fullLockList;
 
     constructor() ERC20("ForTheDog", "FTD") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -42,18 +42,18 @@ contract ForTheDog is ERC20, ERC20Burnable, Pausable, AccessControl {
         super._transfer(from , to , amount);
     }
 
-    function FullLockAddress(address account) external onlyRole(LOCK_TRANSFER_ROLE) returns (bool) {
-        _FullLockList[account] = true;
+    function fullLockAddress(address account) external onlyRole(LOCK_TRANSFER_ROLE) returns (bool) {
+        _fullLockList[account] = true;
         return true;
     }
 
     function unFullLockAddress(address account) external onlyRole(LOCK_TRANSFER_ROLE) returns (bool) {
-        delete _FullLockList[account];
+        delete _fullLockList[account];
         return true;
     }
 
-    function FullLockedAddressList(address account) external view virtual returns (bool) {
-        return _FullLockList[account];
+    function fullLockedAddressList(address account) external view virtual returns (bool) {
+        return _fullLockList[account];
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 amount)
@@ -61,7 +61,7 @@ contract ForTheDog is ERC20, ERC20Burnable, Pausable, AccessControl {
         whenNotPaused
         override
     {
-        require(!_FullLockList[from], "Token transfer from LockedAddressList");
+        require(!_fullLockList[from], "Token transfer from LockedAddressList");
         super._beforeTokenTransfer(from, to, amount);
     }
 }
