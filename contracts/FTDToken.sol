@@ -37,11 +37,6 @@ contract ForTheDog is ERC20, ERC20Burnable, Pausable, AccessControl {
         _mint(to, amount);
     }
 
-    function recoveryTokenTransfer(address from , address to , uint256 amount) public onlyRole(DEFAULT_ADMIN_ROLE)
-    {
-        super._transfer(from , to , amount);
-    }
-
     function fullLockAddress(address account) external onlyRole(LOCK_TRANSFER_ROLE) returns (bool) {
         _fullLockList[account] = true;
         return true;
