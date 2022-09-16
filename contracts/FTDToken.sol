@@ -32,7 +32,7 @@ contract ForTheDog is ERC20, ERC20Burnable, Pausable, AccessControl {
         _unpause();
     }
 
-    function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
+    function mint(address to, uint256 amount) external onlyRole(MINTER_ROLE) {
         require(totalSupply() + amount <= _limitMint, "The number of additional issuance has been exceeded.");
         _mint(to, amount);
     }
