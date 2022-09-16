@@ -18,8 +18,8 @@ contract ForTheDog is ERC20, ERC20Burnable, Pausable, AccessControl {
     constructor() ERC20("ForTheDog", "FTD") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);
-        _mint(msg.sender, 1600000000 * 10 ** decimals());
-        _limitMint = 1600000000 * 10 ** decimals();
+        _mint(msg.sender, 16* 10 ** 8 * 10 ** decimals());
+        _limitMint = 16* 10 ** 8 * 10 ** decimals();
         _grantRole(MINTER_ROLE, msg.sender);
         _grantRole(LOCK_TRANSFER_ROLE, msg.sender);
     }
